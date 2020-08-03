@@ -1,0 +1,29 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <h1 class="large text-primary">Edit Post</h1>
+  <p class="lead"><i class="fas fa-heart"></i> The Developer Community</p>
+  <div class="post-form">
+    <div class="post-form-header bg-primary">
+      <h3>Say Something...</h3>
+    </div>
+    <form class="form my-1" action="/edit-post/<%= post._id %>" method="POST">
+      <div class="form-group">
+        <input
+          type="text"
+          placeholder="Title"
+          name="title"
+          value="<%= post.title %>"
+          required
+          style="font-size: medium;"
+        />
+      </div>
+      <textarea cols="30" rows="5" placeholder="Create a Post" name="post">
+<%= post.text %></textarea
+      >
+      <input type="submit" value="Submit" class="btn btn-dark my-1" />
+    </form>
+  </div>
+</section>
+
+<%- include('./partials/footer') %>

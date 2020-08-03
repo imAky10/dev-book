@@ -1,0 +1,44 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <h1 class="large text-primary">Developers</h1>
+  <p class="lead">
+    <i class="fas fa-laptop-code"></i> Browse and Connect with Developers
+  </p>
+  <br/>
+  <div class="profiles">
+    <% if(profiles.length >0) { %> <% profiles.map((profile)=>{ %>
+    <div class="profile bg-light">
+      <img
+        src="<%= profile.user.avatar %>"
+        alt="Github DP instead of Gravatar"
+        class="round-img"
+        onerror="imgError(this)"
+      />
+
+      <div>
+        <h2><%= profile.user.name %></h2>
+        <p>
+          <%= profile.status %> at <%= profile.company %>
+        </p>
+        <p><%= profile.location %></p>
+        <br/>
+        <a href="/profile/<%= profile.user._id %>" class="btn btn-primary"
+          >View Profile</a
+        >
+      </div>
+
+      <ul>
+  
+          <% for(let i=0; i<profile.skills.length; i++) { %>
+        <li class="text-primary"><i class="fas fa-check"></i> <%= profile.skills[i] %></li>
+        <% } %>
+      </ul>
+    </div>
+    <%}) } else { %>
+    <br />
+    <h3>No profiles added yet.</h3>
+    <% } %>
+  </div>
+</section>
+<%- include('./partials/footer') %>

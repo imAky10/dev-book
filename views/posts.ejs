@@ -1,0 +1,47 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <h1 class="large text-primary">Posts</h1>
+  <p class="lead">
+    <i class="fas fa-heart"></i> Welcome to the Developer Community
+  </p>
+  <br />
+  <div class="posts">
+    <% if(posts.length>0) { %> <% posts.map(post=>{ %>
+    <div class="post bg-white my-1 p-1">
+      <div>
+        <a href="/profile/<%= post.user._id %>">
+          <img
+            src="<%= post.user.avatar %>"
+            alt="Github DP instead of Gravatar"
+            class="round-img"
+            onerror="imgError(this)"
+          />
+          <h4><%= post.user.name %></h4>
+        </a>
+      </div>
+
+      <div
+        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+      >
+        <h3><%= post.title %></h3>
+        <p class="post-date">
+          <%= moment(post.date).format('MMMM Do YYYY, hh:mm a') %>
+        </p>
+        <p class="my-1">
+          <%= post.text %>
+        </p>
+
+        <a href="/post/<%= post._id %>" class="btn btn-primary"
+          >Read Full Post</a
+        >
+      </div>
+    </div>
+    <% })} else { %>
+    <br />
+    <h3>No posts added yet.</h3>
+    <% } %>
+  </div>
+</section>
+
+<%- include('./partials/footer') %>

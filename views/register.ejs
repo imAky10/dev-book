@@ -1,0 +1,46 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <%- include('./partials/messages') %>
+  <h1 class="large text-primary">Sign Up</h1>
+  <p class="lead"><i class="fas fa-user-ninja"></i> Create Your Account</p>
+  <form action="/register" method="POST" autocomplete="off" class="form">
+    <div class="form-group">
+      <input type="text" placeholder="Name" required name="name" />
+    </div>
+    <div class="form-group">
+      <input type="email" placeholder="Email" required name="email" />
+    </div>
+    <div class="form-group">
+      <input
+        type="text"
+        placeholder="Github Username (Optional)"
+        name="githubUsername"
+      />
+      <small class="form-text">
+        Enter yout Github username for a DP
+      </small>
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        placeholder="Password"
+        minlength="6"
+        required
+        name="password"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        minlength="6"
+        required
+        name="password2"
+      />
+    </div>
+    <input type="submit" value="Register" class="btn btn-primary" />
+  </form>
+  <p class="my-1">Already Have an Account? <a href="/login">Sign In</a></p>
+</section>
+<%- include('./partials/footer') %>

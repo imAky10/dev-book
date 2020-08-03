@@ -1,0 +1,129 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <a href="/profiles" class="btn">Back to Profiles</a>
+
+  <div class="profile-grid my-1">
+    <!-- Top -->
+    <div class="profile-top bg-primary p-2">
+      <img
+        src="<%= profile.user.avatar %>"
+        alt="Github DP instead of Gravatar"
+        class="round-img my-1"
+        onerror="imgError(this)"
+      />
+
+      <h1 class="large"><%= profile.user.name %></h1>
+      <p class="lead"><%= profile.status %> at <%= profile.company %></p>
+      <p><%= profile.location %></p>
+      <div class="icons my-1">
+        <a href="#"><i class="fas fa-globe fa-2x"></i></a>
+        <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+        <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+        <a href="#"><i class="fab fa-reddit fa-2x"></i></a>
+        <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+        <a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+        <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="profile-about bg-light p-2">
+      <h2 class="text-primary"><%= profile.user.name %>'s Bio</h2>
+      <p>
+        <%= profile.bio %>
+      </p>
+      <div class="line"></div>
+      <h2 class="text-primary">Skill Set</h2>
+      <div class="skills">
+        <% for(let i=0; i<profile.skills.length; i++) { %>
+        <div class="p-1">
+          <i class="fas fa-check"></i> 
+          
+          
+            <%= profile.skills[i] %>
+          
+        </div>
+        <% } %>
+        
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="profile-exp bg-white p-2">
+      <h2 class="text-primary">Experiences</h2>
+
+      <div>
+        <% experience.map((userExperience)=>{ %>
+          <h3><%= userExperience.company %></h3>
+          <p><%= moment(userExperience.from).format('MMMM Do YYYY') %> - <%=
+          moment(userExperience.to).format('MMMM Do YYYY') %></p>
+          <p><strong>Position: </strong><%= userExperience.title %></p>
+          <p><strong>Description: </strong><%= userExperience.description %></p>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="profile-edu bg-white p-2">
+      <h2 class="text-primary">Education</h2>
+      
+      <div>
+        <% education.map((userEducation)=>{ %>
+          <h3><%= userEducation.school %></h3>
+          <p><%= moment(userEducation.from).format('MMMM Do YYYY') %> - <%=
+          moment(userEducation.to).format('MMMM Do YYYY') %></p>
+          <p><strong>Field of Study: </strong><%= userEducation.fieldofstudy %></p>
+          <p><strong>Description: </strong><%= userEducation.description %></p>
+        <% }) %>
+      </div>
+    </div>
+    </div>
+    
+
+    <!-- Github Repos -->
+    <div class="profile-github">
+      <h2 class="text-primary my-1">
+        <i class="fab fa-github"></i> Github Repos
+      </h2>
+      <% if (repos.length>0) { %>
+        <% repos.map((repo)=>{ %>
+      <div class="repo bg-white my-1 p-1">
+        <div>
+          <h4>Repo Name : <a href="<%= `repo.owner.html_url` %>"" style="color: #1E90FF;"><%= repo.name %></a></h4>
+          <p class="post-date"><b>Created At</b>: <%= moment(repo.created_at).format('MMMM Do YYYY') %></p>
+        </div> 
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <% if(repo.description) { %>
+            <p style="margin-bottom: 20px; margin-top: 15px;">
+            
+              <%= repo.description %>
+            </p>
+            <% } else { %> 
+            <p style="margin-bottom: 20px; margin-top: 15px; color: red;">
+              Repo has no description.
+          </p>
+          <% } %>
+        </div>
+       
+        <div>
+          <ul>
+            <li class="badge badge-primary">Stars: <%= repo.stargazers_count %></li>
+            <li class="badge badge-dark">Forks: <%= repo.forks %></li>
+
+          </ul>
+        </div>
+          
+        </div>
+      </div>
+       <% }) } else { %>
+          <h4>No repositories to show.</h4>
+          <% } %>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('./partials/footer') %>

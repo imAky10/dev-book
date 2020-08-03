@@ -1,0 +1,107 @@
+<%- include('./partials/header') %>
+
+<section class="container">
+  <a href="/posts" class="btn">Back To Posts</a>
+  <div class="post bg-white p-1 my-1">
+    <div>
+      <a href="/profile/<%= post.user._id %>">
+        <img
+          class="round-img"
+          src="<%= post.user.avatar %>"
+          alt="Github DP instead of Gravatar"
+          onerror="imgError(this)"
+        />
+        <h4><%= post.user.name %></h4>
+      </a>
+    </div>
+    <div>
+      <h2 style="margin-top: 20px;"><%= post.title %></h2>
+      <p class="post-date">
+        <b>Posted On</b> : <%= moment(post.date).format('MMMM Do YYYY, hh:mm a')
+        %>
+      </p>
+      <p class="my-1">
+        <%= post.text %>
+      </p>
+      <br />
+      <% if(user) { %> <% if(user.id == post.user.id) { %>
+      <a
+        href="/delete-post/<%= post._id %>"
+        class="btn btn-danger"
+        style="float: right;"
+        >Delete Post</a
+      >
+      <a
+        href="/edit-post/<%= post._id %>"
+        class="btn btn-primary"
+        style="float: right;"
+        >Edit Post</a
+      >
+      <% } %> <% } %>
+    </div>
+  </div>
+
+  <div class="post-form">
+    <div class="post-form-header bg-primary">
+      <h4>Leave A Comment</h4>
+    </div>
+    <form class="form my-1" action="/add-comment/<%= post._id %>" method="POST">
+      <textarea
+        name="text"
+        cols="30"
+        rows="5"
+        placeholder="Comment on this post"
+      ></textarea>
+      <input type="submit" class="btn btn-dark my-1" value="Submit" />
+    </form>
+  </div>
+
+  <br />
+
+  <ul class="comment-section">
+    <% if(comments.length>0) { %>
+    <p><%= comments.length %> Comments</p>
+    <hr />
+    <br />
+    <% comments.map(comment => { %>
+    <li class="comments author_comments" style="margin: auto;">
+      <div class="information" style="margin-left: 10px; margin-top: 2px;">
+        <a href="#"><%= comment.name %></a>
+        <p class="post-date">
+          <%= moment(comment.date).format('MMMM Do YYYY, hh:mm a')%>
+        </p>
+      </div>
+      <a
+        class="avatar"
+        href="/profile/<%= comment.user %>"
+        style="margin-top: 5px;"
+      >
+        <img
+          src="<%= comment.avatar %>"
+          style="width: 30px; object-fit: contain;"
+          alt="Profile Avatar"
+        />
+      </a>
+      <div class="comment-div" style="margin-right: 20px;">
+        <p class="comment">
+          <%= comment.text %>
+        </p>
+        <% if(user) { %> <% if(user.id == comment.user) { %>
+        <a
+          href="/delete-comment/<%= post._id %>/<%= comment._id %>"
+          class="del-btn"
+          style="float: right;"
+        >
+          <i class="fa fa-trash"></i>
+        </a>
+        <% } %> <% } %>
+      </div>
+    </li>
+    <br />
+    <% }) } else { %>
+    <h4>No Comments Yet.</h4>
+    <% } %>
+  </ul>
+</section>
+
+<%- include('./partials/footer') %>
